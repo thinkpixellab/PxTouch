@@ -1,10 +1,15 @@
 /*global module:false*/
 module.exports = function(grunt) {
 
+    var BANNER_TEMPLATE = '/*! <%= pkg.title %> | <%= pkg.homepage %> | <%= grunt.template.today("yyyy-mm-dd") %> */\n';
+
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         concat: {
+            options: {
+                banner: BANNER_TEMPLATE
+            },
             dist: {
                 src: [
                     'js/specialEvents.js',
@@ -46,7 +51,7 @@ module.exports = function(grunt) {
         },
         uglify: {
             options: {
-                banner: '/*! <%= pkg.title %> | <%= pkg.homepage %> | <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+                banner: BANNER_TEMPLATE
             },
             dist: {
                 src: ['<%= concat.dist.dest %>'],
