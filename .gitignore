@@ -1,0 +1,3 @@
+*.sublime-*
+jquery.pxtouch*.js
+node_modules
