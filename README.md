@@ -20,6 +20,10 @@ $('#article').on('pinchend', function(event) {
 
 We've created a drawing sample that will log all pointer and gesture related events. Try using your mouse to draw on the canvas and then try experimenting with gestures on a touch device.
 
+### Try the Online Demo
+[http://thinkpixellab.com/pxtouch/](http://thinkpixellab.com/pxtouch/)
+
+
 ### Building the Sample Locally
 1. Clone the repostiory to your machine.
 2. Install NodeJS from [http://nodejs.org/](http://nodejs.org)

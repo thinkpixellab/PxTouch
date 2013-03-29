@@ -6,6 +6,7 @@ body {
     -ms-touch-action: none;
     -webkit-touch-callout:none;
     -ms-content-zooming: none;
+    font-family: Arial;
 }
 
 #touchArea {
