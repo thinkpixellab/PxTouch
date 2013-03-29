@@ -23,6 +23,13 @@ module.exports = function(grunt) {
                 dest: '<%= pkg.name %>.js'
             }
         },
+        copy: {
+            dist: {
+                files: [
+                    { src: ['jquery.pxtouch.js'], dest: 'sample/' }
+                ]
+            }
+        },
         jshint: {
             files: [ 'gruntfile.js', 'js/*.js', 'sample/draw.js' ],
             options: {
@@ -46,7 +53,7 @@ module.exports = function(grunt) {
         watch: {
             cj: {
                 files: ['<%= jshint.files %>'],
-                tasks: ['jshint', 'concat', 'uglfiy']
+                tasks: ['jshint', 'concat', 'copy', 'uglfiy']
             }
         },
         uglify: {
@@ -67,6 +74,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
 
-    grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
+    grunt.registerTask('default', ['jshint', 'concat', 'copy', 'uglify']);
 
 };
