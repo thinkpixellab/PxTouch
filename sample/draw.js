@@ -110,6 +110,10 @@ jQuery(function() {
             log('holdend');
         },
 
+        doubletap: function(event) {
+            log('doubletap');
+        },
+
         dragstart: function(event) {
             log(event.type + ' length:' + event.length.toFixed(2));
         },

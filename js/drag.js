@@ -8,7 +8,7 @@
 
     var DragState = {
         NONE:    0,
-        DRAG:   1,
+        DRAG:    1,
         INVALID: 2
     };
 

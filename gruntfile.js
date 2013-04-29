@@ -16,6 +16,7 @@ module.exports = function(grunt) {
                     'js/pointers.js',
                     'js/gestures.js',
                     'js/taps.js',
+                    'js/doubletap.js',
                     'js/pinch.js',
                     'js/drag.js',
                     'js/swipe.js'
@@ -46,7 +47,8 @@ module.exports = function(grunt) {
                 browser: true,
                 globals: {
                     jQuery: true,
-                    PxTouch: true
+                    PxTouch: true,
+                    console: true
                 }
             }
         },
