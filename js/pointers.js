@@ -58,6 +58,9 @@
         if (window.navigator.msPointerEnabled) {
             this.$el.on(this.listeners.msPointer);
             $(document).on(this.docListeners.msPointer);
+            if (document !== top.document) {
+                $(top.document).on(this.docListeners.msPointer);
+            }
         } else {
             // add touch events if supported
             if ('ontouchstart' in window) {
@@ -67,16 +70,27 @@
             // also add mouse events (mice should still work with touchscreens)
             this.$el.on(this.listeners.mouse);
             $(document).on(this.docListeners.mouse);
+            if (document !== top.document) {
+                $(top.document).on(this.docListeners.mouse);
+            }
             this.mouseEventsEnabled = true;
         }
     };
 
     Pointers.prototype.stop = function() {   
-        this.$el.off(this.listeners.msPointer)
-                .off(this.listeners.touch)
-                .off(this.listeners.mouse);
-        $(document).off(this.docListeners.msPointer)
-                   .off(this.docListeners.mouse);
+        this.$el
+            .off(this.listeners.msPointer)
+            .off(this.listeners.touch)
+            .off(this.listeners.mouse);
+
+        $(document)
+            .off(this.docListeners.msPointer)
+            .off(this.docListeners.mouse);
+
+        $(top.document)
+            .off(this.docListeners.msPointer)
+            .off(this.docListeners.mouse);
+
         this.mouseEventsEnabled = false;
         this.activePointers = [];
     };
