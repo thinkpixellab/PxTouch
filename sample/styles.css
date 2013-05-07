@@ -7,6 +7,7 @@ body {
     -webkit-touch-callout:none;
     -ms-content-zooming: none;
     font-family: Arial;
+    background-color: #fff;
 }
 
 #touchArea {
