@@ -52,13 +52,22 @@
                 'mouseup': normalizeEvent(onPointerEnd, this)
             }  
         };
+
+        // determine whether we should also bind to the top level document
+        this.useTopDocument = false;
+        try {
+            this.useTopDocument = (document !== top.document);
+        } catch(ex) {
+            // ignore exception when accessing doc from another domain
+        }
     }
 
     Pointers.prototype.start = function() {
+
         if (window.navigator.msPointerEnabled) {
             this.$el.on(this.listeners.msPointer);
             $(document).on(this.docListeners.msPointer);
-            if (document !== top.document) {
+            if (this.useTopDocument) {
                 $(top.document).on(this.docListeners.msPointer);
             }
         } else {
@@ -70,7 +79,7 @@
             // also add mouse events (mice should still work with touchscreens)
             this.$el.on(this.listeners.mouse);
             $(document).on(this.docListeners.mouse);
-            if (document !== top.document) {
+            if (this.useTopDocument) {
                 $(top.document).on(this.docListeners.mouse);
             }
             this.mouseEventsEnabled = true;
@@ -87,9 +96,11 @@
             .off(this.docListeners.msPointer)
             .off(this.docListeners.mouse);
 
-        $(top.document)
-            .off(this.docListeners.msPointer)
-            .off(this.docListeners.mouse);
+        if (this.useTopDocument) {
+            $(top.document)
+                .off(this.docListeners.msPointer)
+                .off(this.docListeners.mouse);
+        }
 
         this.mouseEventsEnabled = false;
         this.activePointers = [];
