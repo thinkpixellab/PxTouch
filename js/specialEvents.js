@@ -16,11 +16,13 @@ if (typeof(PxTouch) === 'undefined') { PxTouch = {}; }
                     if (!manager) {
                         manager = new ManagerFactory($el);
                         manager.activeEventTypes = 0;
-                        manager.start();
                         $el.data(dataKey, manager);
                     }
-                    
+
                     manager.activeEventTypes++;
+                    if (manager.activeEventTypes === 1) {
+                        manager.start();
+                    }
                 },
                 teardown: function(namespaces) {
                     var manager = $(this).data(dataKey);
