@@ -213,14 +213,18 @@
             return PointerType.MOUSE;
         }
             
-        // check MSPointer type
+        // check MSPointer type  (IE10 uses numeric constants
+        // and IE11 uses string constants)
         var oe = event.originalEvent;
         switch(oe.pointerType) {
             case oe.MSPOINTER_TYPE_MOUSE:
+            case 'mouse':
                 return PointerType.MOUSE;
             case oe.MSPOINTER_TYPE_TOUCH:
+            case 'touch':
                 return PointerType.TOUCH;
             case oe.MSPOINTER_TYPE_PEN:
+            case 'pen':
                 return PointerType.PEN;
         }
 
