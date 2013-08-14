@@ -6,6 +6,10 @@
     "name": "Pixel Lab",
     "url": "http://thinkpixellab.com"
   },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/thinkpixellab/pxtouch.git"
+  },
   "dependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-uglify": "~0.1.2",
