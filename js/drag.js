@@ -19,9 +19,9 @@
 
         var onGestureHandler = $.proxy(onGestureEvent, this);
         this.listeners = {
-            'gesturestart': onGestureHandler,
-            'gesturemove':  onGestureHandler,
-            'gestureend':   onGestureHandler
+            'pxgesturestart': onGestureHandler,
+            'pxgesturemove':  onGestureHandler,
+            'pxgestureend':   onGestureHandler
         };
     }
 
@@ -73,7 +73,7 @@
 
         var paths = event.paths,
             prevState = this.state,
-            isGestureEnd = (event.type === 'gestureend'),
+            isGestureEnd = (event.type === 'pxgestureend'),
             path, length;
             
         if (prevState !== DragState.INVALID) {
@@ -99,16 +99,16 @@
                     // start the drag gesture
                     if (length > MIN_LENGTH) {
                         this.state = DragState.DRAG;
-                        this.$el.trigger($.Event('dragstart', eventData));
+                        this.$el.trigger($.Event('pxdragstart', eventData));
                     }
                 } else if (!isGestureEnd) {
-                    this.$el.trigger($.Event('dragmove', eventData));
+                    this.$el.trigger($.Event('pxdragmove', eventData));
                 }
             }
 
             if ((prevState === DragState.DRAG && this.state === DragState.INVALID) ||
                 (this.state === DragState.DRAG && isGestureEnd)) {
-                this.$el.trigger($.Event('dragend', eventData));
+                this.$el.trigger($.Event('pxdragend', eventData));
             }
         }
 
@@ -119,8 +119,8 @@
     }
 
     PxTouch.registerSpecialEvents(
-        'pxtouch.drag',
-        [ 'dragstart', 'dragmove', 'dragend'],
+        'pxdrag',
+        [ 'pxdragstart', 'pxdragmove', 'pxdragend'],
         Drag);
 
 })(PxTouch.jQuery || jQuery);

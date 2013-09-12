@@ -20,7 +20,7 @@
         this.firstTime = 0;
 
         this.listeners = { 
-            'tap': $.proxy(onTapHandler, this)
+            'pxtap': $.proxy(onTapHandler, this)
         };
     }
 
@@ -61,7 +61,7 @@
                 } else {
 
                     // trigger the double tap
-                    this.$el.trigger(new $.Event('doubletap', {
+                    this.$el.trigger(new $.Event('pxdoubletap', {
                         x: event.x,
                         y: event.y,
                         pointerType: event.pointerType,
@@ -84,7 +84,7 @@
         this.state = newState;
     }
 
-    PxTouch.registerSpecialEvents('pxtouch.doubletap', [ 'doubletap' ], DoubleTap);
+    PxTouch.registerSpecialEvents('pxdoubletap', [ 'pxdoubletap' ], DoubleTap);
 
 })(PxTouch.jQuery || jQuery);
 

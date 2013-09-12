@@ -23,9 +23,9 @@
 
         var onGestureHandler = $.proxy(onGestureEvent, this);
         this.listeners = {
-            'gesturestart': onGestureHandler,
-            'gesturemove':  onGestureHandler,
-            'gestureend':   onGestureHandler
+            'pxgesturestart': onGestureHandler,
+            'pxgesturemove':  onGestureHandler,
+            'pxgestureend':   onGestureHandler
         };
     }
 
@@ -42,7 +42,7 @@
 
         var paths = event.paths,
             prevState = this.state,
-            isGestureEnd = (event.type === 'gestureend'),
+            isGestureEnd = (event.type === 'pxgestureend'),
             pathA, pathB, aLen, bLen, moveDistance, startDistance, scale;
             
         if (prevState !== PinchState.INVALID) {
@@ -89,19 +89,19 @@
                     };
 
                     if (prevState === PinchState.NONE) {
-                        this.$el.trigger($.Event('pinchstart', eventData));
+                        this.$el.trigger($.Event('pxpinchstart', eventData));
                     } else if (!isGestureEnd) {
-                        this.$el.trigger($.Event('pinchmove', eventData));
+                        this.$el.trigger($.Event('pxpinchmove', eventData));
                     }
 
                     if (isGestureEnd) {
-                        this.$el.trigger($.Event('pinchend', eventData));
+                        this.$el.trigger($.Event('pxpinchend', eventData));
                     }
                 }
             } 
 
             if (this.state === PinchState.INVALID && prevState === PinchState.PINCH) {
-                this.$el.trigger($.Event('pinchend', {
+                this.$el.trigger($.Event('pxpinchend', {
                     originX: 0,
                     originY: 0,
                     scale: 0,
@@ -119,8 +119,8 @@
     }
 
     PxTouch.registerSpecialEvents(
-        'pxtouch.pinch',
-        [ 'pinchstart', 'pinchmove', 'pinchend'],
+        'pxpinch',
+        [ 'pxpinchstart', 'pxpinchmove', 'pxpinchend'],
         Pinch);
 
 })(PxTouch.jQuery || jQuery);

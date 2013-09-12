@@ -8,9 +8,9 @@
 
         var onPointerHandler = $.proxy(onPointerEvent, this);
         this.listeners = {
-            'pointerstart': onPointerHandler,
-            'pointermove':  onPointerHandler,
-            'pointerend':   onPointerHandler
+            'pxpointerstart': onPointerHandler,
+            'pxpointermove':  onPointerHandler,
+            'pxpointerend':   onPointerHandler
         };
     }
 
@@ -60,7 +60,7 @@
             }
 
             // mark the path as inactive if pointer ended
-            if (event.type === 'pointerend' && currentPath.isActive) {
+            if (event.type === 'pxpointerend' && currentPath.isActive) {
                 activeCount--;
                 currentPath.isActive = false;
             }
@@ -68,11 +68,11 @@
 
         // determine the gesture state
         if (activeCount <= 0) {
-            gestureType = 'gestureend';
+            gestureType = 'pxgestureend';
         } else if (prevPaths === 0) {
-            gestureType = 'gesturestart';
+            gestureType = 'pxgesturestart';
         } else {
-            gestureType = 'gesturemove';
+            gestureType = 'pxgesturemove';
         }
 
         this.$el.trigger(new $.Event(gestureType, {
@@ -126,8 +126,8 @@
     };
 
     PxTouch.registerSpecialEvents(
-        'pxtouch.gestures',
-        [ 'gesturestart', 'gesturemove', 'gestureend' ],
+        'pxgestures',
+        [ 'pxgesturestart', 'pxgesturemove', 'pxgestureend' ],
         Gestures);
 
 })(PxTouch.jQuery || jQuery);

@@ -24,11 +24,19 @@
 
         // set of native events we listen to categorized by input type
         this.listeners = {
+            // IE10 uses vendor style event names
             msPointer: {
                 'MSPointerDown':   normalizeEvent(onPointerStart, this),
                 'MSPointerMove':   normalizeEvent(onPointerMove, this),
                 'MSPointerUp':     normalizeEvent(onPointerEnd, this),
                 'MSPointerCancel': normalizeEvent(onPointerCancel, this)
+            },
+            // IE11 uses the w3c proposed standard names
+            pointer: {
+                'pointerdown':   normalizeEvent(onPointerStart, this),
+                'pointermove':   normalizeEvent(onPointerMove, this),
+                'pointerup':     normalizeEvent(onPointerEnd, this),
+                'pointercancel': normalizeEvent(onPointerCancel, this)
             }, 
             touch: {
                 'touchstart':   normalizeEvent(onTouchStart, this),
@@ -47,7 +55,10 @@
         this.docListeners = {
             msPointer: {
                 'MSPointerUp': normalizeEvent(onPointerEnd, this)
-            }, 
+            },
+            pointer: {
+                'pointerup': normalizeEvent(onPointerEnd, this)
+            },
             mouse: {
                 'mouseup': normalizeEvent(onPointerEnd, this)
             }  
@@ -64,12 +75,13 @@
 
     Pointers.prototype.start = function() {
 
-        if (window.navigator.msPointerEnabled) {
+        var addDocListeners;
+        if (window.navigator.pointerEnabled) {
+            this.$el.on(this.listeners.pointer);
+            addDocListeners = this.docListeners.pointer;
+        } else if (window.navigator.msPointerEnabled) {
             this.$el.on(this.listeners.msPointer);
-            $(document).on(this.docListeners.msPointer);
-            if (this.useTopDocument) {
-                $(top.document).on(this.docListeners.msPointer);
-            }
+            addDocListeners = this.docListeners.msPointer;
         } else {
             // add touch events if supported
             if ('ontouchstart' in window) {
@@ -78,27 +90,32 @@
 
             // also add mouse events (mice should still work with touchscreens)
             this.$el.on(this.listeners.mouse);
-            $(document).on(this.docListeners.mouse);
-            if (this.useTopDocument) {
-                $(top.document).on(this.docListeners.mouse);
-            }
             this.mouseEventsEnabled = true;
+            addDocListeners = this.docListeners.mouse;
+        }
+
+        $(document).on(addDocListeners);
+        if (this.useTopDocument) {
+            $(top.document).on(addDocListeners);
         }
     };
 
     Pointers.prototype.stop = function() {   
         this.$el
             .off(this.listeners.msPointer)
+            .off(this.listeners.pointer)
             .off(this.listeners.touch)
             .off(this.listeners.mouse);
 
         $(document)
             .off(this.docListeners.msPointer)
+            .off(this.docListeners.pointer)
             .off(this.docListeners.mouse);
 
         if (this.useTopDocument) {
             $(top.document)
                 .off(this.docListeners.msPointer)
+                .off(this.docListeners.pointer)
                 .off(this.docListeners.mouse);
         }
 
@@ -119,7 +136,7 @@
     function onPointerStart(pointer, event) {
         // add new pointers to the active list and notify listener
         this.activePointers.push(pointer);
-        this.triggerEvent('pointerstart', pointer, event);
+        this.triggerEvent('pxpointerstart', pointer, event);
     }
 
     function onPointerMove(pointer, event) {
@@ -131,7 +148,7 @@
 
             // replace the pointer and call listener
             this.activePointers.splice(activeIndex, 1, pointer);
-            this.triggerEvent('pointermove', pointer, event);
+            this.triggerEvent('pxpointermove', pointer, event);
         }
     }
 
@@ -145,7 +162,7 @@
 
             // remove active pointer and notify listener
             this.activePointers.splice(activeIndex, 1);
-            this.triggerEvent('pointerend', pointer, event, cancelled);
+            this.triggerEvent('pxpointerend', pointer, event, cancelled);
         }        
     }
 
@@ -213,8 +230,9 @@
             return PointerType.MOUSE;
         }
             
-        // check MSPointer type  (IE10 uses numeric constants
-        // and IE11 uses string constants)
+        // check MSPointer type
+        // IE10 uses numeric constants
+        // IE11 uses string constants
         var oe = event.originalEvent;
         switch(oe.pointerType) {
             case oe.MSPOINTER_TYPE_MOUSE:
@@ -255,8 +273,8 @@
     };
 
     PxTouch.registerSpecialEvents(
-        'pxtouch.pointers',
-        [ 'pointerstart', 'pointermove', 'pointerend'],
+        'pxpointers',
+        [ 'pxpointerstart', 'pxpointermove', 'pxpointerend'],
         Pointers);
 
 })(PxTouch.jQuery || jQuery);

@@ -21,9 +21,9 @@
 
         var onGestureHandler = $.proxy(onGestureEvent, this);
         this.listeners = {
-            'gesturestart': onGestureHandler,
-            'gesturemove':  onGestureHandler,
-            'gestureend':   onGestureHandler
+            'pxgesturestart': onGestureHandler,
+            'pxgesturemove':  onGestureHandler,
+            'pxgestureend':   onGestureHandler
         };
     }
 
@@ -40,7 +40,7 @@
 
         var paths = event.paths,
             prevState = this.state,
-            isGestureEnd = (event.type === 'gestureend'),
+            isGestureEnd = (event.type === 'pxgestureend'),
             isRightClick = false,
             newState, distance;
 
@@ -82,11 +82,11 @@
         // did a hold just end?
         if ((newState === TapState.HOLD && isGestureEnd) ||
             (prevState === TapState.HOLD && newState !== prevState)) {
-            this.triggerEvent('holdend', event, newState === TapState.INVALID);  
+            this.triggerEvent('pxholdend', event, newState === TapState.INVALID);  
         } 
         // or should we trigger a tap 
         else if (isGestureEnd && newState === TapState.TAP) {
-            this.triggerEvent('tap', event);  
+            this.triggerEvent('pxtap', event);  
         }
 
         // reset if its the end of a gesture
@@ -96,7 +96,7 @@
     function createHoldStartTrigger(event, context) {
         return $.proxy(function() {
             this.state = TapState.HOLD;
-            this.triggerEvent('holdstart', event);
+            this.triggerEvent('pxholdstart', event);
             this.holdTimer = null;
         }, context);
     }
@@ -113,11 +113,8 @@
     };
 
     PxTouch.registerSpecialEvents(
-        'pxtouch.taps',
-        [ 'tap', 'holdstart', 'holdend' ],
+        'pxtaps',
+        [ 'pxtap', 'pxholdstart', 'pxholdend' ],
         Taps);
 
 })(PxTouch.jQuery || jQuery);
-
-
-

@@ -74,73 +74,73 @@ jQuery(function() {
             logEvent(event);
         },
         
-        pointerstart: function(event) {
+        pxpointerstart: function(event) {
             logEvent(event);
             drawPointer(event);    
         },
-        pointermove: function(event) {
+        pxpointermove: function(event) {
             drawPointer(event);    
 
             // prevent panning the screen
             event.preventDefault();
         },
-        pointerend: function(event) {
+        pxpointerend: function(event) {
             logEvent(event);
             drawPointer(event);
             delete pointerColors['c-' + event.pointer.id];
         },
 
-        gesturestart: function(event) {
+        pxgesturestart: function(event) {
             logGesture(event);
         },
-        gesturemove: function(event) {
+        pxgesturemove: function(event) {
             //logGesture(event);
         },
-        gestureend: function(event) {
+        pxgestureend: function(event) {
             logGesture(event);
         },
 
-        tap: function(event) {
-            log('tap');
+        pxtap: function(event) {
+            log(event.type);
         },
-        holdstart: function(event) {
-            log('holdstart');
+        pxholdstart: function(event) {
+            log(event.type);
         },
-        holdend: function(event) {
-            log('holdend');
-        },
-
-        doubletap: function(event) {
-            log('doubletap');
+        pxholdend: function(event) {
+            log(event.type);
         },
 
-        dragstart: function(event) {
+        pxdoubletap: function(event) {
+            log(event.type);
+        },
+
+        pxdragstart: function(event) {
             log(event.type + ' length:' + event.length.toFixed(2));
         },
-        dragmove: function(event) {
+        pxdragmove: function(event) {
             //log(event.type + ' angle:' + event.angle.toFixed(2));
         },
-        dragend: function(event) {
+        pxdragend: function(event) {
             log(event.type + ' length:' + event.length.toFixed(2));
         },
 
-        pinchstart: function(event) {
+        pxpinchstart: function(event) {
             log(event.type + ' scale:' + event.scale.toFixed(2));
         },
-        pinchmove: function(event) {
+        pxpinchmove: function(event) {
             log(event.type + ' scale:' + event.scale.toFixed(2));
         },
-        pinchend: function(event) {
+        pxpinchend: function(event) {
             log(event.type + ' scale:' + event.scale.toFixed(2));
         },
 
-        swipestart: function(event) {
+        pxswipestart: function(event) {
             log(event.type + ' angle:' + event.angle.toFixed(2));
         },
-        swipemove: function(event) {
+        pxswipemove: function(event) {
             //log(event.type + ' angle:' + event.angle.toFixed(2));
         },
-        swipeend: function(event) {
+        pxswipeend: function(event) {
             log(event.type + ' angle:' + event.angle.toFixed(2));
         }
 

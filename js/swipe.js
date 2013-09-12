@@ -23,9 +23,9 @@
 
         var onDragHandler = $.proxy(onDragEvent, this);
         this.listeners = {
-            'dragstart': onDragHandler,
-            'dragmove':  onDragHandler,
-            'dragend':   onDragHandler
+            'pxdragstart': onDragHandler,
+            'pxdragmove':  onDragHandler,
+            'pxdragend':   onDragHandler
         };
     }
 
@@ -44,7 +44,7 @@
 
         var paths = event.paths,
             prevState = this.state,
-            isDragEnd = (event.type === 'dragend'),
+            isDragEnd = (event.type === 'pxdragend'),
             length = event.length,
             angle, angleDiff;
             
@@ -67,7 +67,7 @@
                 this.state = SwipeState.SWIPE;
                 this.maxLength = length;
                 this.angle = angle;
-                this.$el.trigger($.Event('swipestart', eventData));
+                this.$el.trigger($.Event('pxswipestart', eventData));
             } else {
 
                 // verify that the length and angle don't vary too much
@@ -83,14 +83,14 @@
                 }
 
                 if (this.state !== SwipeState.INVALID && !isDragEnd) {
-                    this.$el.trigger($.Event('swipemove', eventData));
+                    this.$el.trigger($.Event('pxswipemove', eventData));
                 }
             }
 
             if ((prevState === SwipeState.SWIPE && this.state === SwipeState.INVALID) ||
                 (this.state === SwipeState.SWIPE && isDragEnd)) {
                 eventData.cancelled = (this.state === SwipeState.INVALID);
-                this.$el.trigger($.Event('swipeend', eventData));
+                this.$el.trigger($.Event('pxswipeend', eventData));
             }
         }
 
@@ -103,8 +103,8 @@
     }
 
     PxTouch.registerSpecialEvents(
-        'pxtouch.swipe',
-        [ 'swipestart', 'swipemove', 'swipeend'],
+        'pxswipe',
+        [ 'pxswipestart', 'pxswipemove', 'pxswipeend'],
         Swipe);
 
 })(PxTouch.jQuery || jQuery);
