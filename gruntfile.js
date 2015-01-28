@@ -1,7 +1,7 @@
 /*global module:false*/
 module.exports = function(grunt) {
 
-    var BANNER_TEMPLATE = '/*! <%= pkg.title %> | <%= pkg.homepage %> | <%= grunt.template.today("yyyy-mm-dd") %> */\n';
+    var BANNER_TEMPLATE = '/*! <%= pkg.title %> v<%= pkg.version %> | <%= pkg.homepage %> */\n';
 
     // Project configuration.
     grunt.initConfig({
@@ -21,13 +21,13 @@ module.exports = function(grunt) {
                     'js/drag.js',
                     'js/swipe.js'
                 ],
-                dest: '<%= pkg.name %>.js'
+                dest: 'dist/<%= pkg.name %>.js'
             }
         },
         copy: {
             dist: {
                 files: [
-                    { src: ['jquery.pxtouch.js'], dest: 'sample/' }
+                    { expand: true, cwd: 'dist/', src: ['jquery.pxtouch.js'], dest: 'sample/' }
                 ]
             }
         },
@@ -64,7 +64,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 src: ['<%= concat.dist.dest %>'],
-                dest: '<%= pkg.name %>.min.js'
+                dest: 'dist/<%= pkg.name %>.min.js'
             }
         }
     });
