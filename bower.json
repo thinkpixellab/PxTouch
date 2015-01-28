@@ -1,0 +1,23 @@
+{
+  "name": "pxtouch",
+  "version": "1.0.0",
+  "homepage": "https://github.com/thinkpixellab/PxTouch",
+  "authors": [
+    "Joel Fillmore <joelfillmore@gmail.com>"
+  ],
+  "description": "jQuery plugin designed to normalize mouse and touch events across all modern browsers.",
+  "main": "dist/jquery.pxtouch.js",
+  "keywords": [
+    "pxtouch",
+    "touch",
+    "pointer"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
