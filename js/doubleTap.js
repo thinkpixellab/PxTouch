@@ -77,7 +77,7 @@
         // capture info for first tap
         if (newState === TapState.SINGLE_TAP) {
             this.firstX = event.x;
-            this.firstY = event.y,
+            this.firstY = event.y;
             this.firstTime = Date.now();
         }
 
