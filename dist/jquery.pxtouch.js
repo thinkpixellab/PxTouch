@@ -106,7 +106,12 @@ if (typeof(PxTouch) === 'undefined') { PxTouch = {}; }
             },
             mouse: {
                 'mouseup': normalizeEvent(onPointerEnd, this)
-            }  
+            },
+            touch: {
+                // when using touch mouse may work too, so add both
+                'mouseup': normalizeEvent(onPointerEnd, this),
+                'touchend': normalizeEvent(onPointerEnd, this)
+            }
         };
 
         // determine whether we should also bind to the top level document
@@ -131,12 +136,15 @@ if (typeof(PxTouch) === 'undefined') { PxTouch = {}; }
             // add touch events if supported
             if ('ontouchstart' in window) {
                 this.$el.on(this.listeners.touch);
+                
+                addDocListeners = this.docListeners.touch;
+            } else {
+                addDocListeners = this.docListeners.mouse;
             }
 
             // also add mouse events (mice should still work with touchscreens)
             this.$el.on(this.listeners.mouse);
             this.mouseEventsEnabled = true;
-            addDocListeners = this.docListeners.mouse;
         }
 
         $(document).on(addDocListeners);
@@ -664,7 +672,7 @@ if (typeof(PxTouch) === 'undefined') { PxTouch = {}; }
         // capture info for first tap
         if (newState === TapState.SINGLE_TAP) {
             this.firstX = event.x;
-            this.firstY = event.y,
+            this.firstY = event.y;
             this.firstTime = Date.now();
         }
 
