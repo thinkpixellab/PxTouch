@@ -21,7 +21,7 @@ module.exports = function(grunt) {
                     'js/drag.js',
                     'js/swipe.js'
                 ],
-                dest: 'dist/<%= pkg.name %>.js'
+                dest: 'dist/jquery.pxtouch.js'
             }
         },
         copy: {
@@ -64,7 +64,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 src: ['<%= concat.dist.dest %>'],
-                dest: 'dist/<%= pkg.name %>.min.js'
+                dest: 'dist/jquery.pxtouch.min.js'
             }
         }
     });

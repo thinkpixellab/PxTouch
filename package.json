@@ -1,8 +1,9 @@
 {
-  "name": "jquery.pxtouch",
+  "name": "pxtouch",
   "version": "1.0.0",
   "title": "PxTouch",
   "homepage": "http://github.com/thinkpixellab/pxtouch",
+  "license": "MIT",
   "author": {
     "name": "Pixel Lab",
     "url": "http://thinkpixellab.com"
