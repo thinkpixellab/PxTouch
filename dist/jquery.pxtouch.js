@@ -1,4 +1,4 @@
-/*! PxTouch v1.0.3 | http://github.com/thinkpixellab/pxtouch */
+/*! PxTouch v1.1.0 | http://github.com/thinkpixellab/pxtouch */
 
 // single global namespace
 if (typeof(PxTouch) === 'undefined') { PxTouch = {}; }
