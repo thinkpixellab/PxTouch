@@ -1,3 +1,6 @@
+This repository is no longer maintained as of April 2026. Archived for reference.
+
+
 # PxTouch
 
 PxTouch is a jQuery plugin designed to normalize mouse and touch events across all modern browsers. Our goal is to make is easier to create touch enabled sites that work everywhere. We support simple touch events along with a set of multi-touch gestures.
